@@ -5,7 +5,7 @@ provider "aws" {
 resource "aws_iam_role" "aws_eks_role_to_assume" {
     name = "aws_eks_role_to_assume"
     assume_role_policy = <<POLICY
-    {
+{
         "Version" : "2012-10-17",
         "Statement" : [
             {
@@ -21,13 +21,13 @@ resource "aws_iam_role" "aws_eks_role_to_assume" {
 }
 
 resource "aws_iam_role_policy_attachment" "microservice-aws-eks-cluster-AmazonEKSClusterPolicy" {
-    policy_arn = "arn:aws:iam:aws:policy/AmazonEKSClusterPolicy"
-    role = "aws_iam_role.aws_eks_role_to_assume"
+    policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
+    role = "${aws_iam_role.aws_eks_role_to_assume.name}"
 }
 
 resource "aws_iam_role_policy_attachment" "microservice-aws-eks-cluster-AmazonEKSServicePolicy" {
-    policy_arn = "arn:aws:iam:aws:policy/AmazonEKSServicePolicy"
-    role = "aws_iam_role.aws_eks_role_to_assume"
+    policy_arn = "arn:aws:iam::aws:policy/AmazonEKSServicePolicy"
+    role = "${aws_iam_role.aws_eks_role_to_assume.name}"
 }
 
 
